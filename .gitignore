@@ -1,0 +1,136 @@
+# ===== MediaCMS .gitignore 配置 =====
+
+# 环境变量和敏感配置文件
+.env
+.env.local
+.env.*.local
+*.env
+cli-tool/.env
+*.pem
+*.key
+*.crt
+
+# Python 相关
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Django 相关
+cms/local_settings.py
+deploy/docker/local_settings.py
+db.sqlite3
+*.sqlite3
+*.sqlite
+*.db
+
+# 前端依赖和构建文件
+frontend/package-lock.json
+frontend-vue/node_modules/
+node_modules/
+/static_collected
+/frontend-tools/video-editor/node_modules
+/frontend-tools/video-editor/client/node_modules
+/frontend-tools/video-editor-v1
+/frontend-tools/video-editor-v2
+
+# 媒体文件和上传目录
+media_files/encoded/
+media_files/original/
+media_files/hls/
+media_files/chunks/
+media_files/uploads/
+media_files/tinymce_media/
+static/video_editor/videos/sample-video-30s.mp4
+static/video_editor/videos/sample-video-37s.mp4
+static/video_editor/videos/sample-video-10m.mp4
+static/video_editor/videos/sample-video-10s.mp4
+
+# 数据库和数据目录
+postgres_data/
+
+# 日志和进程文件
+logs/
+pids/
+*.log
+
+# Celery 相关
+celerybeat-schedule
+celerybeat-schedule.*
+celerybeat.pid
+
+# Django 静态文件收集目录
+static/admin/
+static/ckeditor/
+static/debug_toolbar/
+static/mptt/
+static/rest_framework/
+static/drf-yasg
+
+# IDE 相关
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 操作系统相关
+.DS_Store
+frontend-tools/.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# 缓存和临时文件
+*.tmp
+*.temp
+*.cache
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Python 环境管理
+.python-version
+Pipfile.lock
+poetry.lock
+
+# 备份文件
+*.bak
+*.backup
+*.orig
+
+# Git 相关临时文件
+*.patch
+*.diff
+
+# 项目特定文件
+yt.readme.md
+
+# 开发工具生成的文件
+GIT_SETUP_GUIDE.md
+setup-git.bat

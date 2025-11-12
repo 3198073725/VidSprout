@@ -1,0 +1,107 @@
+/* 基础样式 - 匹配 MediaCMS 后端模板 */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--mc-font-family);
+  font-size: var(--mc-font-size);
+  font-weight: var(--mc-font-normal);
+  line-height: 1.6;
+  color: var(--mc-text);
+  background-color: var(--mc-bg);
+  overflow-x: hidden;
+}
+
+/* 链接 */
+a {
+  color: var(--mc-primary);
+  text-decoration: none;
+  transition: var(--mc-transition-fast);
+}
+
+a:hover {
+  color: var(--mc-primary-hover);
+}
+
+/* 标题 */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: var(--mc-font-medium);
+  line-height: 1.2;
+  margin-bottom: var(--mc-space);
+}
+
+h1 { font-size: var(--mc-font-size-3xl); }
+h2 { font-size: var(--mc-font-size-2xl); }
+h3 { font-size: var(--mc-font-size-xl); }
+h4 { font-size: var(--mc-font-size-lg); }
+h5 { font-size: var(--mc-font-size); }
+h6 { font-size: var(--mc-font-size-sm); }
+
+/* 按钮基础样式 */
+button {
+  font-family: var(--mc-font-family);
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+/* 输入框基础样式 */
+input, textarea, select {
+  font-family: var(--mc-font-family);
+  font-size: var(--mc-font-size);
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--mc-bg-alt);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--mc-border-dark);
+  border-radius: var(--mc-radius);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--mc-text-lighter);
+}
+
+/* 工具类 */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.font-light { font-weight: var(--mc-font-light); }
+.font-normal { font-weight: var(--mc-font-normal); }
+.font-medium { font-weight: var(--mc-font-medium); }
+.font-bold { font-weight: var(--mc-font-bold); }
+
+.text-primary { color: var(--mc-primary); }
+.text-muted { color: var(--mc-text-light); }
+
+/* 响应式工具 */
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 12px;
+  }
+}

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>离线 - MediaCMS</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background-color: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      color: #333;
+    }
+
+    .offline-container {
+      text-align: center;
+      padding: 2rem;
+      max-width: 500px;
+    }
+
+    .offline-icon {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 2rem;
+      background-color: #e6f7ff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .offline-icon::before {
+      content: '';
+      width: 60px;
+      height: 60px;
+      background-color: #1890ff;
+      border-radius: 50%;
+      position: absolute;
+    }
+
+    .offline-icon::after {
+      content: '✈';
+      font-size: 30px;
+      color: white;
+      position: absolute;
+      transform: rotate(-45deg);
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #1890ff;
+    }
+
+    p {
+      font-size: 1.1rem;
+      color: #666;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    .offline-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    button {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .primary-btn {
+      background-color: #1890ff;
+      color: white;
+    }
+
+    .primary-btn:hover {
+      background-color: #40a9ff;
+    }
+
+    .secondary-btn {
+      background-color: white;
+      color: #1890ff;
+      border: 1px solid #1890ff;
+    }
+
+    .secondary-btn:hover {
+      background-color: #f0f8ff;
+    }
+
+    .cached-content {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .cached-content h3 {
+      margin-bottom: 1rem;
+      color: #333;
+    }
+
+    .cached-items {
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .cached-item {
+      padding: 0.5rem;
+      background-color: #f8f9fa;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    @media (max-width: 480px) {
+      .offline-icon {
+        width: 100px;
+        height: 100px;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+
+      .offline-actions {
+        flex-direction: column;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="offline-container">
+    <div class="offline-icon"></div>
+    <h1>您当前处于离线状态</h1>
+    <p>请检查您的网络连接，或浏览之前缓存的内容</p>
+    
+    <div class="offline-actions">
+      <button class="primary-btn" onclick="retryConnection()">重新连接</button>
+      <button class="secondary-btn" onclick="goHome()">返回首页</button>
+    </div>
+
+    <div class="cached-content" id="cachedContent" style="display: none;">
+      <h3>可用的缓存内容</h3>
+      <div class="cached-items" id="cachedItems"></div>
+    </div>
+  </div>
+
+  <script>
+    // 重试连接
+    function retryConnection() {
+      window.location.reload()
+    }
+
+    // 返回首页
+    function goHome() {
+      window.location.href = '/'
+    }
+
+    // 显示缓存内容
+    async function showCachedContent() {
+      try {
+        const cache = await caches.open('mediacms-v1')
+        const requests = await cache.keys()
+        
+        if (requests.length > 0) {
+          const cachedContent = document.getElementById('cachedContent')
+          const cachedItems = document.getElementById('cachedItems')
+          
+          cachedContent.style.display = 'block'
+          
+          requests.slice(0, 10).forEach(request => {
+            const item = document.createElement('div')
+            item.className = 'cached-item'
+            item.textContent = new URL(request.url).pathname
+            cachedItems.appendChild(item)
+          })
+        }
+      } catch (error) {
+        console.error('显示缓存内容失败:', error)
+      }
+    }
+
+    // 页面加载时显示缓存内容
+    document.addEventListener('DOMContentLoaded', showCachedContent)
+
+    // 监听网络状态变化
+    window.addEventListener('online', () => {
+      console.log('网络已连接')
+      setTimeout(() => {
+        window.location.reload()
+      }, 1000)
+    })
+
+    window.addEventListener('offline', () => {
+      console.log('网络已断开')
+    })
+  </script>
+</body>
+</html>
