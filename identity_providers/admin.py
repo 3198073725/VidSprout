@@ -218,9 +218,15 @@ class CustomSocialAppAdmin(SocialAppAdmin):
         instances = formset.save(commit=False)
 
         for form in formset.forms:
-            if form.cleaned_data.get('should_delete', False) and form.instance.pk:
-                instances.remove(form.instance)
-                form.instance.delete()
+            if not getattr(form, 'cleaned_data', None):
+                continue
+
+            if form.cleaned_data.get('should_delete') or form.cleaned_data.get('DELETE'):
+                instance = form.instance
+                if instance in instances:
+                    instances.remove(instance)
+                if instance.pk:
+                    instance.delete()
 
         for instance in instances:
             instance.save()

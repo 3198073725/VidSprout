@@ -137,14 +137,16 @@ document.addEventListener('DOMContentLoaded', function() {
         const row = this.closest('tr');
         
         fadeOut(row, 300);
-        console.log(1)
         const formPrefix = row.id.split('-')[0];
         const rowNum = row.id.split('-')[1];
-        const deleteField = document.getElementById('id_' + formPrefix + '-' + rowNum + '-should_delete');
-        console.log(2)
+        const shouldDeleteField = document.getElementById('id_' + formPrefix + '-' + rowNum + '-should_delete');
+        if (shouldDeleteField) {
+            shouldDeleteField.value = '1';
+        }
+
+        const deleteField = document.getElementById('id_' + formPrefix + '-' + rowNum + '-DELETE');
         if (deleteField) {
-            console.log(deleteField)
-            deleteField.value = '1';
+            deleteField.value = 'on';
         }
         
         return false;
