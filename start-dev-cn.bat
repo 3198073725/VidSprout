@@ -79,14 +79,6 @@ if exist "frontend-vue\package.json" (
 REM 等待 3 秒
 timeout /t 3 /nobreak >nul
 
-REM 启动 Vue 管理员前端服务
-echo [启动] Vue 管理员前端（管理后台）...
-if exist "admin-vue\package.json" (
-    start "Vue 管理员前端" cmd /k "cd admin-vue && npm run dev"
-) else (
-    echo [警告] 找不到管理员前端项目的 package.json
-)
-
 echo.
 echo ========================================
 echo 所有服务已启动完成
@@ -97,7 +89,6 @@ echo   - Django 后台:     http://localhost:8000
 echo   - Django Admin:    http://localhost:8000/admin
 echo   - API 文档:        http://localhost:8000/api/v1/
 echo   - 客户端前端:      http://localhost:8088 （用户端）
-echo   - 管理员前端:      http://localhost:5174 （管理后台）
 echo.
 echo 按任意键继续（保持此窗口打开）...
 pause >nul

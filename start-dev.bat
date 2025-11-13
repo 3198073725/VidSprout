@@ -78,14 +78,6 @@ if exist "frontend-vue\package.json" (
 REM Wait 3 seconds
 timeout /t 3 /nobreak >nul
 
-REM Start Vue admin frontend
-echo [STARTUP] Vue admin frontend (admin panel)...
-if exist "admin-vue\package.json" (
-    start "Vue Admin Frontend" cmd /k "cd admin-vue && npm run dev"
-) else (
-    echo [WARNING] Admin frontend package.json not found
-)
-
 echo.
 echo ========================================
 echo All services started successfully
@@ -96,7 +88,6 @@ echo   - Django Backend:  http://localhost:8000
 echo   - Django Admin:    http://localhost:8000/admin
 echo   - API Docs:        http://localhost:8000/api/v1/
 echo   - Client Frontend: http://localhost:8088 (User-facing)
-echo   - Admin Frontend:  http://localhost:5174 (Admin Panel)
 echo.
 echo Press any key to continue (keep this window open)...
 pause >nul
